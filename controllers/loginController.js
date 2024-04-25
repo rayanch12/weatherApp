@@ -2,12 +2,9 @@ const passport = require("passport");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-//For Register Page
 const registerView = (req, res) => {
   res.render("register", {});
 };
-
-//Post Request for Register
 
 const registerUser = (req, res) => {
   const { name, email, location, password, confirm } = req.body;
@@ -16,12 +13,9 @@ const registerUser = (req, res) => {
     console.log("Fill empty fields");
   }
 
-  //Confirm Passwords
-
   if (password !== confirm) {
     console.log("Password must match");
   } else {
-    //Validation
     User.findOne({ email: email }).then((user) => {
       if (user) {
         console.log("email exists");
@@ -32,14 +26,12 @@ const registerUser = (req, res) => {
           confirm,
         });
       } else {
-        //Validation
         const newUser = new User({
           name,
           email,
           location,
           password,
         });
-        //Password Hashing
         bcrypt.genSalt(10, (err, salt) =>
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
@@ -56,18 +48,13 @@ const registerUser = (req, res) => {
   }
 };
 
-// For View
 const loginView = (req, res) => {
   res.render("login", {});
 };
 
-//Logging in Function
-
 const loginUser = (req, res) => {
-  console.log(req.body)
   const { email, password } = req.body;
 
-  //Required
   if (!email || !password) {
     console.log("Please fill in all the fields");
     res.render("login", {
@@ -83,7 +70,6 @@ const loginUser = (req, res) => {
   }
 };
 
-// For View
 const logoutView = (req, res) => {
   req.session.destroy();
   res.render("login", {});

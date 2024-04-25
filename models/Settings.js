@@ -13,7 +13,7 @@ const WeatherSettingsSchema = new Schema({
   },
   location: {
     type: String,
-    default: 'New York'
+    default: 'Paris'
   }
 });
 
