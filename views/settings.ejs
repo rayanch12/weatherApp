@@ -1,4 +1,5 @@
 <%- include('layout.ejs'); %>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,27 +13,58 @@
                             <label for="temperatureUnit" class="col-sm-4 col-form-label">Unité de température :</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="temperatureUnit" name="temperatureUnit">
-                                    <option value="Celsius">Celsius</option>
-                                    <option value="Fahrenheit">Fahrenheit</option>
+                                    <option value="Celsius" <%= settings && settings.temperatureUnit === 'Celsius' ? 'selected' : '' %>>Celsius</option>
+                                    <option value="Fahrenheit" <%= settings && settings.temperatureUnit === 'Fahrenheit' ? 'selected' : '' %>>Fahrenheit</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="location" class="col-sm-4 col-form-label">Emplacement météorologique :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="location" name="location" placeholder="Entrez votre emplacement">
+                                <input type="text" class="form-control" id="location" name="location" placeholder="Entrez votre emplacement" value="<%= settings ? settings.location : '' %>">
                             </div>
                         </div>
+                        <!-- Nouveaux champs de seuil et indicateurs booléens -->
+                        <div class="form-group row">
+                            <label for="temperatureThreshold" class="col-sm-4 col-form-label">Seuil de température :</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="temperatureThreshold" name="temperatureThreshold" placeholder="Seuil de température" value="<%= settings ? settings.temperatureThreshold : '' %>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="humidityThreshold" class="col-sm-4 col-form-label">Seuil d'humidité :</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="humidityThreshold" name="humidityThreshold" placeholder="Seuil d'humidité" value="<%= settings ? settings.humidityThreshold : '' %>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="windSpeedThreshold" class="col-sm-4 col-form-label">Seuil de vitesse du vent :</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="windSpeedThreshold" name="windSpeedThreshold" placeholder="Seuil de vitesse du vent" value="<%= settings ? settings.windSpeedThreshold : '' %>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tsunamiAlert" class="col-sm-4 col-form-label">Alerte tsunami :</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="tsunamiAlert" name="tsunamiAlert">
+                                    <option value="false" <%= settings && settings.tsunamiAlert === false ? 'selected' : '' %>>Non</option>
+                                    <option value="true" <%= settings && settings.tsunamiAlert === true ? 'selected' : '' %>>Oui</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="earthquakeAlert" class="col-sm-4 col-form-label">Alerte tremblement de terre :</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="earthquakeAlert" name="earthquakeAlert">
+                                    <option value="false" <%= settings && settings.earthquakeAlert === false ? 'selected' : '' %>>Non</option>
+                                    <option value="true" <%= settings && settings.earthquakeAlert === true ? 'selected' : '' %>>Oui</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Fin des nouveaux champs -->
                         <div class="form-group row">
                             <div class="col-sm-12 text-center">
                                 <button type="submit" class="btn btn-primary">Enregistrer</button>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-</html>

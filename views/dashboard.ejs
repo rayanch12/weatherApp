@@ -16,16 +16,56 @@
                         </div>
                         <div class="col-md-6">
                             <h5>Météo actuelle :</h5>
-                            <p><strong>Température :</strong> <%= weatherData.main.temp %>°C</p>
-                            <p><strong>Conditions :</strong> <%= weatherData.weather[0].description %></p>
-                            <p><strong>Humidité :</strong> <%= weatherData.main.humidity %>%</p>
-                            <p><strong>Vitesse du vent :</strong> <%= weatherData.wind.speed %> m/s</p>
+                            <p><strong>Température :</strong> <%= currentWeather.main.temp %>°C</p>
+                            <p><strong>Conditions :</strong> <%= currentWeather.weather[0].description %></p>
+                            <p><strong>Humidité :</strong> <%= currentWeather.main.humidity %>%</p>
+                            <p><strong>Vitesse du vent :</strong> <%= currentWeather.wind.speed %> m/s</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Ajouter les prévisions météorologiques -->
+    <div class="row justify-content-center mt-3">
+        <% for(let i=0; i<forecastData.list.length; i+=8) { %>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Prévision <%= i+1 %> :</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Date :</strong> <%= forecastData.list[i].dt_txt %></p>
+                        <p><strong>Température :</strong> <%= forecastData.list[i].main.temp %>°C</p>
+                        <p><strong>Conditions :</strong> <%= forecastData.list[i].weather[0].description %></p>
+                        <p><strong>Humidité :</strong> <%= forecastData.list[i].main.humidity %>%</p>
+                        <p><strong>Vitesse du vent :</strong> <%= forecastData.list[i].wind.speed %> m/s</p>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <!-- Ajouter des alertes relatives aux seuils -->
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-6">
+            <% if (currentWeather.main.temp > temperatureThreshold) { %>
+                <div class="alert alert-danger" role="alert">
+                    Température actuelle supérieure au seuil !
+                </div>
+            <% } %>
+            <% if (currentWeather.main.humidity > humidityThreshold) { %>
+                <div class="alert alert-danger" role="alert">
+                    Humidité actuelle supérieure au seuil !
+                </div>
+            <% } %>
+            <% if (currentWeather.wind.speed > windSpeedThreshold) { %>
+                <div class="alert alert-danger" role="alert">
+                    Vitesse du vent actuelle supérieure au seuil !
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <!-- Boutons Paramètres et Déconnexion -->
     <div class="row justify-content-center mt-3">
         <div class="col-md-6">
             <a href="/settings" class="btn btn-secondary btn-lg btn-block">Paramètres</a>
