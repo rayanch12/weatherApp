@@ -8,8 +8,8 @@ const WeatherSettingsSchema = new Schema({
   },
   temperatureUnit: {
     type: String,
-    enum: ['Celsius', 'Fahrenheit'],
-    default: 'Celsius'
+    enum: ['metric', 'imperial'],
+    default: 'metric'
   },
   location: {
     type: String,

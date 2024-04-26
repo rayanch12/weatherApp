@@ -1,48 +1,99 @@
-<%- include('layout.ejs'); %>
-<div class="container">
-<div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <h2>NODE.JS MVC</h2>  
-                        <div class="card">
-                            <div class="card-header">Login</div>
-                            <div class="card-body">
+<!DOCTYPE html>
+<html lang="fr">
 
-                                <form class="form-horizontal" method="post" action="/login">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+            @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+}
+        .card {
+            border-radius: 25px;
+            background-color: #ADD8E6; /* Couleur de fond de la carte */
+            color: #191970; /* Couleur du texte dans la carte */
+        }
+        .btn-primary {
+            background-color: #FFD700; /* Couleur du bouton */
+            border-color: #FFD700; /* Couleur de la bordure du bouton */
+            color: #191970; /* Couleur du texte sur le bouton */
+        }
+        .btn-primary:hover {
+            background-color: #FFA500; /* Couleur de survol du bouton */
+            border-color: #FFA500; /* Couleur de la bordure au survol du bouton */
+        }
+        .input-group-addon {
+            background-color: #FFD700; /* Couleur de fond de l'addon */
+            border-color: #FFD700; /* Couleur de la bordure de l'addon */
+            color: #191970; /* Couleur du texte de l'addon */
+        }
+        .center-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
 
-                                
-                                    <div class="form-group">
-                                        <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                                        <div class="cols-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="password" class="cols-sm-2 control-label">Password</label>
-                                        <div class="cols-sm-10">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group ">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Login</button>
-                                    </div>
-                                    <div class="login-register">
-                                        <a href="/register">Register</a>
-                                    </div>
-                                </form>
-                            </div>
+<body>
 
-                        </div>
-                    </div>
+    <div class="container center-form">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Connexion</h2>
                 </div>
-</div>
+                <div class="card-body">
+                    <form class="form-horizontal" method="post" action="/login">
+
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">Votre Email</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="Entrez votre Email" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="cols-sm-2 control-label">Mot de passe</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Entrez votre mot de passe" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Connexion</button>
+                        </div>
+
+                        <div class="login-register">
+                            <a href="/register">Inscription</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 </html>

@@ -1,77 +1,113 @@
 <%- include('layout.ejs'); %>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    .card {
+        border-radius: 25px;
+        background-color: #ADD8E6; /* Background color of the card */
+        color: #191970; /* Text color in the card */
+    }
+    .btn-primary {
+        background-color: #FFD700; /* Button color */
+        border-color: #FFD700; /* Button border color */
+        color: #191970; /* Text color on the button */
+    }
+    .btn-primary:hover {
+        background-color: #FFA500; /* Button hover color */
+        border-color: #FFA500; /* Button border hover color */
+    }
+    .input-group-addon {
+        background-color: #FFD700; /* Addon background color */
+        border-color: #FFD700; /* Addon border color */
+        color: #191970; /* Addon text color */
+    }
+    .center-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+</style>
+
+</style>
 <div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-6">
+            <h1><%= user.city %></h1>
+        </div>
+        <div class="col-md-6 text-right">
+            <h3><%= user.name %> 
+                <a href="/settings" class="btn btn-secondary"><i class="fas fa-cog"></i></a>
+            </h3>
+            <a href="/logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Bienvenue <%= user.name %> !</h3>
+                    <h3><%= user.location %></h3>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Informations personnelles :</h5>
-                            <p><strong>Nom :</strong> <%= user.name %></p>
-                            <p><strong>Email :</strong> <%= user.email %></p>
-                            <p><strong>Localisation :</strong> <%= user.location %></p>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>Météo actuelle :</h5>
-                            <p><strong>Température :</strong> <%= currentWeather.main.temp %>°C</p>
-                            <p><strong>Conditions :</strong> <%= currentWeather.weather[0].description %></p>
-                            <p><strong>Humidité :</strong> <%= currentWeather.main.humidity %>%</p>
-                            <p><strong>Vitesse du vent :</strong> <%= currentWeather.wind.speed %> m/s</p>
-                        </div>
-                    </div>
+                    <h1><%= currentWeather.main.temp %>°C</h1>
+                    <h2><%= currentWeather.weather[0].description %></h2>
+                    <p><strong>Feels Like:</strong> <%= currentWeather.main.feels_like %>°C</p>
+                    <p><strong>Humidity:</strong> <%= currentWeather.main.humidity %>%</p>
+                    <p><strong>Wind Speed:</strong> <%= currentWeather.wind.speed %> m/s</p>
+                    <p><strong>UV Index:</strong> <%= currentWeather.uv_index %></p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Ajouter les prévisions météorologiques -->
-    <div class="row justify-content-center mt-3">
-        <% for(let i=0; i<forecastData.list.length; i+=8) { %>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Prévision <%= i+1 %> :</h5>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Date :</strong> <%= forecastData.list[i].dt_txt %></p>
-                        <p><strong>Température :</strong> <%= forecastData.list[i].main.temp %>°C</p>
-                        <p><strong>Conditions :</strong> <%= forecastData.list[i].weather[0].description %></p>
-                        <p><strong>Humidité :</strong> <%= forecastData.list[i].main.humidity %>%</p>
-                        <p><strong>Vitesse du vent :</strong> <%= forecastData.list[i].wind.speed %> m/s</p>
+        <div class="row justify-content-center mt-3">
+            <% for(let i=0; i<4; i++) { %>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><%= new Date(forecastData.list[i*8].dt_txt).toLocaleDateString(undefined, { day: 'numeric', month: 'long' }) %> </h5>
+                        </div>
+                        <div class="card-body">
+                            <p> <%= forecastData.list[i*8].main.temp %>°C</p>
+                            <p> <%= forecastData.list[i*8].weather[0].description %></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <% } %>
+            <% } %>
+        </div>
+        
     </div>
-    <!-- Ajouter des alertes relatives aux seuils -->
     <div class="row justify-content-center mt-3">
         <div class="col-md-6">
             <% if (currentWeather.main.temp > temperatureThreshold) { %>
                 <div class="alert alert-danger" role="alert">
-                    Température actuelle supérieure au seuil !
+                    Current temperature is above the threshold!
                 </div>
             <% } %>
             <% if (currentWeather.main.humidity > humidityThreshold) { %>
                 <div class="alert alert-danger" role="alert">
-                    Humidité actuelle supérieure au seuil !
+                    Current humidity is above the threshold!
                 </div>
             <% } %>
             <% if (currentWeather.wind.speed > windSpeedThreshold) { %>
                 <div class="alert alert-danger" role="alert">
-                    Vitesse du vent actuelle supérieure au seuil !
+                    Current wind speed is above the threshold!
                 </div>
             <% } %>
-        </div>
-    </div>
-    <!-- Boutons Paramètres et Déconnexion -->
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-6">
-            <a href="/settings" class="btn btn-secondary btn-lg btn-block">Paramètres</a>
-        </div>
-        <div class="col-md-6">
-            <a href="/logout" class="btn btn-danger btn-lg btn-block">Déconnexion</a>
         </div>
     </div>
 </div>

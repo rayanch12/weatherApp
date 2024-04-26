@@ -4,13 +4,14 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const MongoDBStore = require('connect-mongodb-session')(session);
+const path = require("path");
 
 // Configure passport
 const { loginCheck } = require("./auth/passport");
 loginCheck(passport);
 
 // Connect to MongoDB
-const mongoURI = 'mongodb://localhost:27017/weather-app'; // Replace 'your-database-name' with the name of your database
+const mongoURI = 'mongodb://localhost:27017/weather-app';
 mongoose.connect(mongoURI, {
   useUnifiedTopology: true,
   useNewUrlParser: true
@@ -29,6 +30,8 @@ store.on('error', function (error) {
 
 // Set view engine
 app.set("view engine", "ejs");
+app.use(express.static("public"));
+
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
